@@ -3,10 +3,12 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Observable, map } from 'rxjs';
 import 'zone.js';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [ CommonModule ],
   template: `
     <h1>Hello from {{ name }}!</h1>
     <a target="_blank" href="https://angular.dev/overview">
@@ -16,8 +18,7 @@ import 'zone.js';
     <button (click)="incrementCounter()">Increment</button>
     <p>Counter is: {{ counter() }} </p>
     <p>A computed counter is: {{ doubleCounter() }} </p>
-    <p>THE ASYNC DOES NOT WORK HERE???</p>
-    <p>A computed Observable is: {{ counter$ }}</p>
+    <p>A computed Observable is: {{ counter$ | async }}</p>
     <p>A computed Signal from Observable is: {{ counterFinalSignal() }} </p>
   `,
 })
