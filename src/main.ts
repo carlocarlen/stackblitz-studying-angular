@@ -1,5 +1,7 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
+import { toObservable } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 import 'zone.js';
 
 @Component({
@@ -14,12 +16,16 @@ import 'zone.js';
     <button (click)="incrementCounter()">Increment</button>
     <p>Counter is: {{ counter() }} </p>
     <p>A computed counter is: {{ doubleCounter() }} </p>
+    <p>A computed Observable is: {{ counter$ | async }}</p>
+    <p>A computed Signal from Observable is: </p>
   `,
 })
 export class App {
   name = 'Carlo';
   counter = signal(0);
   doubleCounter = computed(() => this.counter()*2);
+
+  counter$: Observable<number> = toObservable(this.counter);
 
   constructor() {
     effect(() => {console.log(`The current counter is ${this.counter()}`)})
