@@ -4,11 +4,12 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Observable, map } from 'rxjs';
 import 'zone.js';
 import { CommonModule } from '@angular/common';
+import { QueryChildrenComponent } from './query-children.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ CommonModule ],
+  imports: [ CommonModule, QueryChildrenComponent ],
   template: `
     <h1>Hello from {{ name }}!</h1>
     <a target="_blank" href="https://angular.dev/overview">
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     <p>A computed counter is: {{ doubleCounter() }} </p>
     <p>A computed Observable is: {{ counter$ | async }}</p>
     <p>A computed Signal from Observable is: {{ counterFinalSignal() }} </p>
+    <app-query-children></app-query-children>
   `,
 })
 export class App {
