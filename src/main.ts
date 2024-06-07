@@ -16,7 +16,7 @@ import 'zone.js';
     <button (click)="incrementCounter()">Increment</button>
     <p>Counter is: {{ counter() }} </p>
     <p>A computed counter is: {{ doubleCounter() }} </p>
-    <p>A computed Observable is: {{ counter$ | async }}</p>
+    <p>A computed Observable is: {{ counter$ }}</p>
     <p>A computed Signal from Observable is: </p>
   `,
 })
