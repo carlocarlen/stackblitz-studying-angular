@@ -1,7 +1,7 @@
 import { Component, computed, effect, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { toObservable } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Observable, map } from 'rxjs';
 import 'zone.js';
 
 @Component({
@@ -18,7 +18,7 @@ import 'zone.js';
     <p>A computed counter is: {{ doubleCounter() }} </p>
     <p>THE ASYNC DOES NOT WORK HERE???</p>
     <p>A computed Observable is: {{ counter$ }}</p>
-    <p>A computed Signal from Observable is: </p>
+    <p>A computed Signal from Observable is: {{ counterFinalSignal() }} </p>
   `,
 })
 export class App {
@@ -26,7 +26,11 @@ export class App {
   counter = signal(0);
   doubleCounter = computed(() => this.counter()*2);
 
-  counter$: Observable<number> = toObservable(this.counter);
+  counter$: Observable<number> = toObservable(this.counter).pipe(
+    map(current => current*3)
+  )
+
+  counterFinalSignal = toSignal(this.counter$);
 
   constructor() {
     effect(() => {console.log(`The current counter is ${this.counter()}`)})
