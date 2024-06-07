@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import 'zone.js';
 
@@ -13,13 +13,13 @@ import 'zone.js';
     <p>
     <button (click)="incrementCounter()">Increment</button>
     <p>Counter is: {{ counter() }} </p>
-    <p>A computed counter is: {{ doubleCounter()() }} </p>
+    <p>A computed counter is: {{ doubleCounter() }} </p>
   `,
 })
 export class App {
   name = 'Carlo';
   counter = signal(0);
-  doubleCounter = signal(() => this.counter()*2);
+  doubleCounter = computed(() => this.counter()*2);
 
   constructor() {
     effect(() => {console.log(`The current counter is ${this.counter()}`)})
